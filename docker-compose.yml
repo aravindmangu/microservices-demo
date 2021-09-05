@@ -1,0 +1,47 @@
+version: '3'
+services:
+  client-service-app:
+    container_name: client-service
+    build:
+      context: aravind-client-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server-app
+    command: discovery-server-app:8188
+    image: client-service:1
+    ports:
+      - 8120-8130:8080
+    networks:
+      - micro-demo-network
+    
+  discovery-server-app:
+    container_name: discovery-server
+    build:
+      context: aravind-discovery-server
+      dockerfile: Dockerfile
+    image: discovery-server:1
+    ports:
+      - 8188-8198:8761
+    networks:
+      - micro-demo-network
+      
+  wait:
+    image: dokku/wait
+    networks:
+      - micro-demo-network
+      
+  api-gateway-app:
+    container_name: api-gateway
+    build:
+      context: aravind-api-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server-app
+    image: api-gateway:1
+    ports:
+      - 8100-8110:8788
+    networks:
+      - micro-demo-network
+networks:
+  micro-demo-network:
+    driver: bridge

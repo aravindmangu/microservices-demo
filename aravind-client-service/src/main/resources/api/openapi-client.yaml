@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  title: Demo Client Management Api
+  description: Client Service demonstration.
+  contact:
+    name: Demo
+  license:
+    name: private
+  version: "1"
+servers:
+  - url: https://localhost:8081/api-docs
+    variables:
+      basePath:
+        default: client
+tags:
+  - name: Client Management API
+    description: Client Api Controller
+paths:
+  /client/addClient:
+    post:
+      tags:
+        - Client Management API
+      summary: Create Client
+      description: API creates client
+      operationId: addClient
+      parameters:
+        - name: X-Auth-User
+          in: header
+          description: X-Auth-User
+          schema:
+            type: string
+      requestBody:
+        description: client
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        201:
+          description: Data created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        400:
+          description: Request Invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Authentication has failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: The request is forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: Request syntax is correct, but request data was unable to satisfy
+            validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        422:
+          description: Request syntax is correct, but request data was unable to satisfy
+            validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveClientResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: client
+  /client/updateClient:
+    put:
+      tags:
+        - Client Management API
+      summary: Update Client
+      description: API updates client
+      operationId: updateClient
+      parameters:
+        - name: X-Auth-User
+          in: header
+          description: X-Auth-User
+          schema:
+            type: string
+      requestBody:
+        description: client
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        200:
+          description: Updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        400:
+          description: Request Invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Authentication has failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: The request is forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: Request syntax is correct, but request data was unable to satisfy
+            validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        422:
+          description: Request syntax is correct, but request data was unable to satisfy
+            validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveClientResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: client
+  /client/getClient/{clientId}:
+    get:
+      tags:
+        - Client Management API
+      summary: Get Client
+      description: API returns client
+      operationId: getClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Auth-User
+          in: header
+          description: X-Auth-User
+          schema:
+            type: string
+      responses:
+        200:
+          description: Retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        400:
+          description: Request Invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Authentication has failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: The request is forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /client/deleteClient/{clientId}:
+    delete:
+      tags:
+        - Client Management API
+      summary: Delete Client
+      description: API deletes client
+      operationId: deleteClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Auth-User
+          in: header
+          description: X-Auth-User
+          schema:
+            type: string
+      responses:
+        200:
+          description: Retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        400:
+          description: Request Invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Authentication has failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: The request is forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Client:
+      title: Client
+      required:
+        - name
+        - email
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^\d$
+        name:
+          minLength: 1
+          maxLength: 30
+          type: string
+          description: 'Client''s name. [Constraint: `client_name`]'
+          example: John
+        email:
+          maxLength: 70
+          type: string
+          pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$
+          description: 'Client''s email. [Constraint: `client_email`]'
+          example: abc@xyz.com
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        error_code:
+          type: integer
+          description: Error Code returned. Possible Values are HTTP Status Codes
+          format: int32
+        message:
+          type: string
+          description: Message describing the error that occurred. This message, along
+            with the HTTP code, should always provide enough description to consumers
+            about what has gone wrong.
+          example: Unauthorised access to API.
+        trace_id:
+          type: string
+          description: Trace Id for the exception scenario based on Zipkin Brave tracing
+          example: 281bcfd8cf392377
+    SaveClientResponse:
+      title: SaveClientResponse
+      type: object
+      properties:
+        errors:
+          type: array
+          description: List of validation errors.
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      title: ValidationError
+      required:
+        - code
+      type: object
+      properties:
+        category:
+          type: string
+          description: Category is optional
+          example: validation_failed
+        code:
+          type: string
+          description: Code representing the validation rule that failed
+          example: IN123
+        description:
+          type: string
+          description: Description of the validation error
+          example: Name cannot be blank
+        field:
+          type: string
+          description: The name of the input field that triggered a validation error
+          example: firstName
+        rule_id:
+          type: string
+          description: Rule Id is optionally
+          example: Rule001
+        rule_name:
+          type: string
+          description: Rule Name is optionally
+          example: Storage Type
+        severity:
+          type: string
+          description: 'Severity: error or warning'
+          example: error
+    ValidationErrorResponse:
+      title: ValidationErrorResponse
+      type: object
+      properties:
+        errors:
+          type: array
+          description: List of validation errors.
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ValidationError'

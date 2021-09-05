@@ -1,0 +1,54 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.openapi.generator' version "4.3.1"
+	id 'java'
+}
+
+group = 'au.com.demo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'junit:junit:4.13.1'
+    compileOnly "org.projectlombok:lombok"
+	annotationProcessor "org.projectlombok:lombok"
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
+	implementation "io.swagger.parser.v3:swagger-parser:2.0.20"
+	implementation "org.openapitools:jackson-databind-nullable:0.2.1"
+	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.0"
+	implementation "org.springframework.cloud:spring-cloud-starter-sleuth:3.0.3"
+	//implementation "org.springframework.cloud:spring-cloud-sleuth-zipkin:3.0.3"
+
+	runtimeOnly('com.h2database:h2')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "$projectDir/src/main/resources/api/openapi-client.yaml"
+	outputDir = "$buildDir/generated"
+	apiPackage = "au.com.demo.clientservice.client.v1.api"
+	invokerPackage = "au.com.demo.clientservice"
+	modelPackage = "au.com.demo.clientservice.client.v1.model"
+	configOptions = [
+			dateLibrary: "java11",
+			interfaceOnly: "true",
+	]
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+sourceSets.main.java.srcDir "$buildDir/generated/src/main/java"
+sourceSets.main.resources.srcDir "$buildDir/generated/src/main/resources"
+
+test {
+	useJUnitPlatform()
+}
