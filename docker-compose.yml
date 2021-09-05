@@ -3,14 +3,14 @@ services:
   client-service-app:
     container_name: client-service
     build:
-      context: aravind-client-service
+      context: aravind-client-service_new
       dockerfile: Dockerfile
     depends_on:
       - discovery-server-app
     command: discovery-server-app:8188
     image: client-service:1
     ports:
-      - 8120-8130:8080
+      - 8140-8150:8080
     networks:
       - micro-demo-network
     
@@ -42,6 +42,20 @@ services:
       - 8100-8110:8788
     networks:
       - micro-demo-network
+    
+  api-gateway-auth-app:
+    container_name: api-gateway-auth
+    build:
+      context: aravind-api-gateway-auth
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server-app
+    image: api-gateway-auth:1
+    ports:
+      - 8120-8130:8688
+    networks:
+      - micro-demo-network
+      
 networks:
   micro-demo-network:
     driver: bridge
