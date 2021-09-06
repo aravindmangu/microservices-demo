@@ -24,9 +24,9 @@ paths:
       description: API creates client
       operationId: addClient
       parameters:
-        - name: X-Auth-User
+        - name: Authorization
           in: header
-          description: X-Auth-User
+          description: Authorization
           schema:
             type: string
       requestBody:
@@ -96,9 +96,9 @@ paths:
       description: API updates client
       operationId: updateClient
       parameters:
-        - name: X-Auth-User
+        - name: Authorization
           in: header
-          description: X-Auth-User
+          description: Authorization
           schema:
             type: string
       requestBody:
@@ -228,9 +228,9 @@ paths:
           required: true
           schema:
             type: string
-        - name: X-Auth-User
+        - name: Authorization
           in: header
-          description: X-Auth-User
+          description: Authorization
           schema:
             type: string
       responses:
